@@ -3,101 +3,274 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Video Gallery</title>
+  <title>My Modern Video Site</title>
+  
+  <!-- SEO & Meta -->
+  <meta name="description" content="Watch videos, music, tutorials, and more on my modern video landing page.">
+  <meta name="keywords" content="videos, music, tutorials, YouTube, landing page, gallery">
+  <meta name="author" content="Your Name">
+  <meta property="og:title" content="My Modern Video Site">
+  <meta property="og:description" content="Watch videos, music, tutorials, and more on my modern video landing page.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://your-image-url.com/social-preview.png">
+  
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #4F46E5, #9333EA);
-      color: white;
-      text-align: center;
-      min-height: 100vh;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+    body { background:#111; color:white; transition: background 0.3s, color 0.3s; }
+    a { color:inherit; text-decoration:none; }
+    h1, h2 { text-align:center; margin:20px 0; }
+    
+    /* Dark/Light mode */
+    body.light { background:#f0f0f0; color:#111; }
+    body.light .video-container iframe, body.light .video-container video { filter: brightness(1); }
 
-    h1 {
-      padding: 2rem 0 1rem;
-      font-size: 2rem;
-    }
-
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 2rem;
-      justify-items: center;
-    }
-
-    .video-container {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 12px;
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
     }
+    .hero video {
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      z-index: -1;
+    }
+    .hero-overlay {
+      position:absolute;
+      top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.5);
+      z-index:0;
+    }
+    .hero-content {
+      z-index:1;
+      color:white;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .hero-content h1 { font-size:3rem; margin-bottom:20px; }
+    .hero-content button {
+      padding:10px 20px; margin:5px; border:none; border-radius:8px;
+      cursor:pointer; font-weight:bold; background:#4F46E5; color:white;
+      transition:0.3s;
+    }
+    .hero-content button:hover { background:#9333EA; }
 
-    video, iframe {
-      width: 100%;
-      height: 280px;
-      display: block;
+    /* Video Gallery */
+    .tabs { display:flex; justify-content:center; margin:30px 0; flex-wrap:wrap; }
+    .tabs button {
+      padding:10px 20px; margin:5px; border:none; border-radius:8px;
+      cursor:pointer; background:#222; color:white; transition:0.3s;
     }
+    .tabs button.active { background:#4F46E5; }
+    .tabs button:hover { background:#9333EA; }
+    
+    .video-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap:20px;
+      padding:0 20px 40px 20px;
+    }
+    .video-container {
+      background:#222;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .video-container:hover { transform: scale(1.05); }
+    .video-container video, .video-container iframe { width:100%; height:280px; display:block; }
 
-    footer {
-      margin: 2rem 0;
-      font-size: 0.9rem;
-      opacity: 0.8;
+    /* Video Buttons */
+    .video-buttons {
+      display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding:10px;
     }
+    .video-buttons a {
+      padding:5px 10px; border-radius:6px; background:#4F46E5; color:white; font-size:0.9rem;
+      transition:0.3s;
+    }
+    .video-buttons a:hover { background:#9333EA; }
+
+    /* Footer & Social */
+    footer { text-align:center; padding:20px; background:rgba(0,0,0,0.7); }
+    .social-icons { display:flex; justify-content:center; gap:15px; margin:10px 0; }
+    .social-icons a { font-size:1.5rem; color:white; transition:0.3s; }
+    .social-icons a:hover { color:#4F46E5; }
+
+    /* Newsletter */
+    .newsletter { text-align:center; margin:30px 0; }
+    .newsletter input[type=email] { padding:10px; border-radius:6px; border:none; width:250px; margin-right:5px; }
+    .newsletter button { padding:10px 15px; border:none; border-radius:6px; background:#4F46E5; color:white; cursor:pointer; transition:0.3s; }
+    .newsletter button:hover { background:#9333EA; }
+
+    /* Background Music Button */
+    .music-btn {
+      position:fixed; top:20px; right:20px; padding:10px; border:none; border-radius:50%;
+      background:#4F46E5; color:white; cursor:pointer; font-size:1.2rem; z-index:10;
+      transition:0.3s;
+    }
+    .music-btn:hover { background:#9333EA; }
+
+    /* Animations */
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
   </style>
 </head>
 <body>
 
-  <h1>My Video Gallery</h1>
+  <!-- Dark/Light Toggle -->
+  <button onclick="toggleMode()" style="position:fixed; top:20px; left:20px; z-index:10; padding:10px; border:none; border-radius:50%; background:#4F46E5; color:white; cursor:pointer;">🌓</button>
 
-  <div class="video-grid">
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="background.mp3" type="audio/mp3">
+  </audio>
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
 
-    <!-- Local video -->
-    <div class="video-container">
-      <video controls>
-        <source src="luf.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+  <!-- Hero Section -->
+  <section class="hero">
+    <video autoplay muted loop>
+      <source src="luf.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Welcome to My Video World</h1>
+      <button onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Watch More</button>
+      <button onclick="window.open('https://www.youtube.com/channel/UCexample','_blank')">Subscribe</button>
     </div>
+  </section>
 
-    <!-- YouTube video 1 -->
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- YouTube video 2 -->
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/3tmd-ClpJxA" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- YouTube video 3 -->
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/LsoLEjrDogU" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- YouTube video 4 -->
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- YouTube video 5 -->
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/OPf0YbXqDm0" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- YouTube video 6 -->
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/fRh_vgS2dFE" frameborder="0" allowfullscreen></iframe>
-    </div>
-
+  <!-- Tabs / Categories -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="filterVideos('all')">All</button>
+    <button class="tab-btn" onclick="filterVideos('music')">Music</button>
+    <button class="tab-btn" onclick="filterVideos('tutorial')">Tutorials</button>
+    <button class="tab-btn" onclick="filterVideos('fun')">Fun</button>
   </div>
 
+  <!-- Video Gallery -->
+  <section class="video-grid" id="gallery">
+    
+    <!-- Local video -->
+    <div class="video-container" data-category="all tutorial">
+      <video controls>
+        <source src="luf.mp4" type="video/mp4">
+      </video>
+      <div class="video-buttons">
+        <a href="luf.mp4" download>Download</a>
+        <a href="#" onclick="shareVideo('luf.mp4')">Share</a>
+      </div>
+    </div>
+
+    <!-- YouTube Videos -->
+    <div class="video-container" data-category="all music">
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="video-buttons">
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Watch on YouTube</a>
+        <a href="#" onclick="shareVideo('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">Share</a>
+      </div>
+    </div>
+
+    <div class="video-container" data-category="all music">
+      <iframe src="https://www.youtube.com/embed/3tmd-ClpJxA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="video-buttons">
+        <a href="https://www.youtube.com/watch?v=3tmd-ClpJxA" target="_blank">Watch on YouTube</a>
+        <a href="#" onclick="shareVideo('https://www.youtube.com/watch?v=3tmd-ClpJxA')">Share</a>
+      </div>
+    </div>
+
+    <div class="video-container" data-category="all music">
+      <iframe src="https://www.youtube.com/embed/LsoLEjrDogU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="video-buttons">
+        <a href="https://www.youtube.com/watch?v=LsoLEjrDogU" target="_blank">Watch on YouTube</a>
+        <a href="#" onclick="shareVideo('https://www.youtube.com/watch?v=LsoLEjrDogU')">Share</a>
+      </div>
+    </div>
+
+    <div class="video-container" data-category="all music">
+      <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="video-buttons">
+        <a href="https://www.youtube.com/watch?v=kJQP7kiw5Fk" target="_blank">Watch on YouTube</a>
+        <a href="#" onclick="shareVideo('https://www.youtube.com/watch?v=kJQP7kiw5Fk')">Share</a>
+      </div>
+    </div>
+
+    <div class="video-container" data-category="all music">
+      <iframe src="https://www.youtube.com/embed/OPf0YbXqDm0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="video-buttons">
+        <a href="https://www.youtube.com/watch?v=OPf0YbXqDm0" target="_blank">Watch on YouTube</a>
+        <a href="#" onclick="shareVideo('https://www.youtube.com/watch?v=OPf0YbXqDm0')">Share</a>
+      </div>
+    </div>
+
+    <div class="video-container" data-category="all music">
+      <iframe src="https://www.youtube.com/embed/fRh_vgS2dFE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="video-buttons">
+        <a href="https://www.youtube.com/watch?v=fRh_vgS2dFE" target="_blank">Watch on YouTube</a>
+        <a href="#" onclick="shareVideo('https://www.youtube.com/watch?v=fRh_vgS2dFE')">Share</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Newsletter -->
+  <div class="newsletter">
+    <h2>Subscribe for Updates</h2>
+    <input type="email" placeholder="Your email">
+    <button>Subscribe</button>
+  </div>
+
+  <!-- Footer & Social -->
   <footer>
+    <div class="social-icons">
+      <a href="https://youtube.com" target="_blank">📺</a>
+      <a href="https://instagram.com" target="_blank">📸</a>
+      <a href="https://twitter.com" target="_blank">🐦</a>
+    </div>
     &copy; 2025 My Video Site | All Rights Reserved
   </footer>
 
+  <!-- Scripts -->
+  <script>
+    // Dark / Light Mode
+    function toggleMode() {
+      document.body.classList.toggle('light');
+    }
+
+    // Background Music
+    const bgMusic = document.getElementById('bgMusic');
+    let musicPlaying = false;
+    function toggleMusic() {
+      if(musicPlaying){ bgMusic.pause(); musicPlaying=false; } 
+      else { bgMusic.play(); musicPlaying=true; }
+    }
+
+    // Video Sharing
+    function shareVideo(url){
+      prompt("Share this link:", url);
+    }
+
+    // Tabs / Filter
+    const tabs = document.querySelectorAll('.tab-btn');
+    const videos = document.querySelectorAll('.video-container');
+    function filterVideos(category){
+      tabs.forEach(t=>t.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      videos.forEach(v=>{
+        if(category==='all' || v.dataset.category.includes(category)){
+          v.style.display='block';
+        } else { v.style.display='none'; }
+      });
+    }
+  </script>
 </body>
 </html>
